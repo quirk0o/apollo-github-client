@@ -2,17 +2,17 @@ import {
   ApolloClient,
   HttpLink,
   InMemoryCache,
-  ApolloLink
-} from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
-import { config } from "./config";
+  ApolloLink,
+} from "@apollo/client"
+import { onError } from "@apollo/client/link/error"
+import { config } from "../config"
 
 const httpLink = new HttpLink({
   uri: config.apiUrl(),
   headers: {
-    Authorization: `Bearer ${config.accessToken()}`
-  }
-});
+    Authorization: `Bearer ${config.accessToken()}`,
+  },
+})
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
@@ -22,20 +22,20 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
           locations
         )}, Path: ${path}`
       )
-    );
+    )
   }
 
   if (networkError) {
-    console.error(`[Network error]: ${networkError}`);
+    console.error(`[Network error]: ${networkError}`)
   }
-});
+})
 
-const link = ApolloLink.from([errorLink, httpLink]);
-const cache = new InMemoryCache();
+const link = ApolloLink.from([errorLink, httpLink])
+const cache = new InMemoryCache()
 
 export function GitHubClient() {
   return new ApolloClient({
     link,
-    cache
-  });
+    cache,
+  })
 }

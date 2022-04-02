@@ -1,12 +1,15 @@
-import { ApolloProvider } from "@apollo/client";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import "styles/reset.css"
+import "styles/index.css"
 
-import { App } from "./app";
-import { GitHubClient } from "./client";
+import { ApolloProvider } from "@apollo/client"
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
+import { App } from "./app"
+import { GitHubClient } from "./api/client"
+
+const rootElement = document.getElementById("root")
+const root = createRoot(rootElement)
 
 root.render(
   <StrictMode>
@@ -14,4 +17,4 @@ root.render(
       <App />
     </ApolloProvider>
   </StrictMode>
-);
+)
